@@ -1,0 +1,91 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: sans-serif;
+    display: flex;
+    gap: 2em; /* só pra afastar o título da div das imagens */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: rgb(188, 197, 197);
+}
+
+img{
+    max-width: 100%;
+    display: block;
+}
+
+/* DIV QUE ENGLOBA AS IMAGENS */
+.gallery{
+    width: 60rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: .5em;
+    background-color: white;
+    padding: .5em;
+    box-shadow: 0 0 14px 2px rgba(0,0,0, .5);
+}
+
+.gallery .image{
+    flex-basis: calc(25% - .5em);
+    position: relative;
+    overflow: hidden;
+    flex-grow: 1; /* usado só para caso retirarmos uma imagem da div, as imgs se alinhem e não fique espaçado*/
+}
+
+.image a{
+    text-decoration: none;
+}
+
+.gallery p{
+    background-color: rgba(0,0,0, .8);
+    color: white;
+    text-transform: uppercase;
+    padding: 1em;
+    letter-spacing: 2px;
+    font-size: .75em;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    opacity: .2;
+    transform: translateY(100%); /* pro texto ir pra baixo da img e "sumir" */
+    transition: all .3s ease-in-out;
+}
+
+.image:hover p{
+    transform: translateY(0); /*pro texto voltar a aparecer*/
+    opacity: 1; /*se não fica com o texto transparente*/
+}
+
+.image img{
+    transform: scale(1); /*n tem diferença*/
+    transition: transform .5s ease-in-out;
+}
+
+.image:hover img{
+    transform: scale(1.2); /*pra img ter uma annimação quando passarmos o mouse*/
+}
+
+/* isso aqui abaixo vai fazer com que todas as imgs tenham um quadrado branco por cima delas com uma opacidade meio que fazendo uma transparêcnia */
+.image::after{
+    content: "";
+    position: absolute;
+    background-color: white;
+    inset: 0; /* serve para colar as imagens transparentes --- isto é um atalho para não colocar toda hora -> bottom: 0; right: 0; left: 0; top:0; */
+    opacity: .5;
+    pointer-events: none; /*serve para desabilitar que essa propriedade evite uma função de clique e o cursor continua com a "mãozinha" padrão de um link.*/
+    transform: scale(1);
+    transition: all .2s ease-in-out;
+}
+
+/* animando o opacity */
+.image:hover::after{
+    opacity: 0;
+    transform: scale(.2); 
+}
